@@ -32,6 +32,21 @@ export class ProfileViewComponent implements OnInit {
     });
   }
 
+  deleteUser(): void {
+    this.fetchApiData.deleteUser().subscribe((resp: any) => {
+      console.log(`user ${this.user.Username} was deleted`);
+      localStorage.clear();
+    });
+    this.router.navigate(['welcome']);
+    this.snackBar.open(
+      'You have successfully deleted your account!',
+      'OK',
+      {
+        duration: 2000,
+      }
+    );
+  }
+
   openMovieView(): void {
     this.router.navigate(['movies']);
   }

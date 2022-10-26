@@ -1,7 +1,11 @@
 <p>profile-view works!</p>
 <h1>{{user.Username}}'s Profile</h1>
 <p>Username: {{user.Username}}</p>
-<p>Password: {{user.Password}}</p>
+<p>Password: ******</p>
 <p>Email: {{user.Email}}</p>
-<p>Birthday: {{user.Birthday}}</p>
-<button mat-button aria-label="Click to view movies" (click)="openMovieView()">Back to movies</button>
+<p>Birthday: {{user.Birthday | date:'dd-MM-yyyy'}}</p>
+<button mat-raised-button color="warn" aria-label="Delete this user profile" (click)="deleteUser()">Delete user
+  profile</button><br>
+<p>Important: Once you click 'delete user profile' your user data cannot be restored.</p><br><br>
+<button mat-raised-button color="primary" aria-label="Click to view movies" (click)="openMovieView()">Back to
+  movies</button>
