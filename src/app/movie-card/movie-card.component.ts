@@ -80,8 +80,7 @@ export class MovieCardComponent implements OnInit {
 
   logout(): void {
     this.router.navigate(['welcome']);
-    localStorage.removeItem('username');
-    localStorage.removeItem('token');
+    localStorage.clear();
   };
 
 }
