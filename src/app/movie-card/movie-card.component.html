@@ -30,7 +30,12 @@
       <button mat-button color="primary" (click)="openSinopsisDialog(movie)">
         Synopsis
       </button>
-      <mat-icon (click)="addToFavourites(movie._id)">favorite_border</mat-icon>
+      <a aria-label="Click to add the movie to your favourite movies' list" (click)="addToFavourites(movie._id)">
+        <mat-icon color="warn">favorite_border</mat-icon>
+      </a>
+      <a aria-label="Click to add the movie to your favourite movies' list" (click)="removeFromFavourites(movie._id)">
+        <mat-icon color="warn">favorite</mat-icon>
+      </a>
     </mat-card-actions>
   </mat-card>
 </div>
