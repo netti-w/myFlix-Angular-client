@@ -18,7 +18,8 @@ import { SynopsisViewComponent } from '../synopsis-view/synopsis-view.component'
 
 export class MovieCardComponent implements OnInit {
   movies: any[] = [];
-  constructor(public fetchApiData: FetchApiDataService, public dialog: MatDialog) { }
+  username: any = localStorage.getItem('username');
+  constructor(public fetchApiData: FetchApiDataService, public dialog: MatDialog, public router: Router) { }
 
   ngOnInit(): void {
     this.getMovies();
@@ -57,6 +58,16 @@ export class MovieCardComponent implements OnInit {
       },
       width: '280px'
     });
+  };
+
+  openProfileView(): void {
+    this.router.navigate(['profile']);
+  };
+
+  logout(): void {
+    this.router.navigate(['welcome']);
+    localStorage.removeItem('username');
+    localStorage.removeItem('token');
   };
 
 }

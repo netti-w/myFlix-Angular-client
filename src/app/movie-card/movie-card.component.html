@@ -5,10 +5,10 @@
     </button>
     <span>myFlix</span>
     <span class="example-spacer"></span>
-    <button mat-button aria-label="Click to view profile">
-      Profile
+    <button mat-button aria-label="Click to view profile" (click)="openProfileView()">
+      Logged in as: {{username}}
     </button>
-    <button mat-button aria-label="Click to Log out">
+    <button mat-button aria-label="Click to Log out" (click)="logout()">
       Log out
     </button>
   </mat-toolbar>
