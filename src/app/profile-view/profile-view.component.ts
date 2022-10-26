@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { Router } from '@angular/router';
@@ -12,6 +12,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProfileViewComponent implements OnInit {
   user: any = {};
+  editMode: Boolean = false;
+
+  @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' };
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -45,9 +48,30 @@ export class ProfileViewComponent implements OnInit {
         duration: 2000,
       }
     );
+  };
+
+  editUser(): void {
+    this.fetchApiData.updateUser(this.userData).subscribe((result) => {
+      console.log(result);
+      this.snackBar.open('Successfully updated profile!', 'OK', {
+        duration: 2000,
+      });
+      this.ngOnInit();
+      this.toggleEditUserMode();
+    });
+  }
+
+  toggleEditUserMode(): void {
+    this.editMode = !this.editMode;
+    // this.userData = { Username: '', Password: '', Email: '', Birthday: '' }; // clear any inputted data when user cancels
   }
 
   openMovieView(): void {
     this.router.navigate(['movies']);
-  }
+  };
+
+  logout(): void {
+    this.router.navigate(['welcome']);
+    localStorage.clear();
+  };
 }
