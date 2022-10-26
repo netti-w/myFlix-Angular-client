@@ -33,6 +33,13 @@ export class MovieCardComponent implements OnInit {
     });
   };
 
+  addToFavourites(movieId: String): void {
+    // console.log(`added to profile ${movieId}`); // for testing
+    this.fetchApiData.addFavouriteMovie(movieId).subscribe((resp: any) => {
+      this.ngOnInit();
+    });
+  }
+
   openDirectorDialog(director: Object): void {
     this.dialog.open(DirectorViewComponent, {
       data: {

@@ -30,7 +30,7 @@
       <button mat-button color="primary" (click)="openSinopsisDialog(movie)">
         Synopsis
       </button>
-      <mat-icon>favorite_border</mat-icon>
+      <mat-icon (click)="addToFavourites(movie._id)">favorite_border</mat-icon>
     </mat-card-actions>
   </mat-card>
 </div>
