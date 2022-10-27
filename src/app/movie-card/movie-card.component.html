@@ -1,10 +1,7 @@
 <div>
   <mat-toolbar>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>myFlix</span>
-    <span class="example-spacer"></span>
+    <span class="logo">myFlix</span>
+    <span class="navigation-items-spacer"></span>
     <button mat-button aria-label="Click to view profile" (click)="openProfileView()">
       Logged in as: {{username}}
     </button>
@@ -13,29 +10,28 @@
     </button>
   </mat-toolbar>
 </div>
-<div style="display: flex;">
+<div class="movie-view" style="display: flex;">
   <mat-card *ngFor="let movie of movies;" style="flex: 1 1 auto;">
     <mat-card-header>
       <mat-card-title>{{movie.Title}}</mat-card-title>
-      <mat-card-subtitle>Directed by: {{movie.Director.Name}}</mat-card-subtitle>
+      <mat-card-subtitle>Directed by: <a mat-button
+          (click)="openDirectorDialog(movie.Director)">{{movie.Director.Name}}</a>
+      </mat-card-subtitle>
     </mat-card-header>
-    <img src={{movie.ImagePath}} alt={{movie.Title}} style="width: 100px;" />
+    <img src={{movie.ImagePath}} alt={{movie.Title}} />
     <mat-card-actions>
-      <button mat-button color="primary" (click)="openGenreDialog(movie.Genre)">
-        Genre
+      <button mat-button color="primary" (click)="openGenreDialog(movie.Genre)">Genre</button>
+      <button mat-button color="primary" (click)="openSinopsisDialog(movie)">Synopsis</button>
+      <button *ngIf="!isFavouriteMovie(movie._id)" mat-icon-button class="example-icon"
+        (click)="addToFavourites(movie._id)" title="Add to your favourite movie list"
+        aria-label="Click to add the movie to your favourite movies' list">
+        <mat-icon color="accent">favorite_border</mat-icon>
       </button>
-      <button mat-button color="primary" (click)="openDirectorDialog(movie.Director)">
-        Director
+      <button *ngIf="isFavouriteMovie(movie._id)" mat-icon-button class="example-icon"
+        (click)="removeFromFavourites(movie._id)" title="Remove from favourite movie list"
+        aria-label="Click to remove the movie from your favourite movies list">
+        <mat-icon color="accent">favorite</mat-icon>
       </button>
-      <button mat-button color="primary" (click)="openSinopsisDialog(movie)">
-        Synopsis
-      </button>
-      <a aria-label="Click to add the movie to your favourite movies' list" (click)="addToFavourites(movie._id)">
-        <mat-icon color="warn">favorite_border</mat-icon>
-      </a>
-      <a aria-label="Click to add the movie to your favourite movies' list" (click)="removeFromFavourites(movie._id)">
-        <mat-icon color="warn">favorite</mat-icon>
-      </a>
     </mat-card-actions>
   </mat-card>
 </div>

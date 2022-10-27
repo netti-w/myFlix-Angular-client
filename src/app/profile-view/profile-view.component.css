@@ -1,3 +1,31 @@
-.example-spacer {
+.logo {
+  padding-left: 20px;
+}
+
+.navigation-items-spacer {
   flex: 1 1 auto;
+}
+
+.profile-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+}
+
+.mat-icon {
+  padding: none;
+  margin: none;
+}
+
+.fav-movies-movie {
+  width: 270px;
+  /* padding: 6px 8px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+.fav-movies-movie-title {
+  padding-top: 16px;
 }

@@ -1,0 +1,35 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.welcome-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.welcome-card {
+  margin-top: 50px;
+  display: flex;
+  padding: 30px;
+  flex-direction: column;
+  /* box-shadow: 10px 5px 5px black; */
+  background-color: #f4f4f4;
+}
+
+.welcome-card-actions {
+  text-align: center;
+  margin: auto;
+}
+
+.welcome-card-header {
+  margin-bottom: 20px;
+  /* color: white; */
+  display: flex;
+  justify-content: center;
+}

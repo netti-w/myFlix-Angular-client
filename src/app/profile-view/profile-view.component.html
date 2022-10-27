@@ -1,9 +1,6 @@
 <mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>myFlix</span>
-  <span class="example-spacer"></span>
+  <span class="logo">myFlix</span>
+  <span class="navigation-items-spacer"></span>
   <button mat-button aria-label="Click to view profile" (click)="openMovieView()">
     Movies
   </button>
@@ -11,59 +8,50 @@
     Log out
   </button>
 </mat-toolbar>
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Hi {{user.Username}}, here are your profile details</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form *ngIf="!editMode">
-      <p>
-        <mat-form-field class="form__field" floatLabel="always">
-          <input matInput [(ngModel)]="user.Username" placeholder="Username" type="text" name="Username" disabled>
-        </mat-form-field>
+<div class="profile-view">
+  <h2 style="text-align: center;">Hi {{user.Username}},<br>here are your profile details</h2>
+  <div class="profile-view" *ngIf="!editMode">
+    <mat-card-content class="user-details">
+      <p>Username: {{user.Username}}</p>
+      <p>Password: <mat-icon>visibility_off</mat-icon>
       </p>
+      <p>Email: {{user.Email}}</p>
+      <p>Birthday: {{user.Birthday | date: 'dd.MM.yyyy'}}</p>
+      <p></p>
+    </mat-card-content>
+    <button mat-raised-button (click)="toggleEditUserMode()" color="primary" style="margin-top:10px">
+      Edit profile details
+    </button><br>
+    <p style="margin-top:40px">
+      If you want to delete your account, please note that your profile will be deleted permanently.
+    </p>
+    <button mat-stroked-button (click)="deleteUser()" color="warn">
+      Delete account
+    </button><br>
+  </div>
+  <div *ngIf="editMode">
+    <form>
       <p>
-        <mat-form-field class="form__field" floatLabel="always">
-          <input matInput [(ngModel)]="user.Password" type="password" placeholder="Password" name="Password" disabled>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field class="form__field" floatLabel="always">
-          <input matInput [(ngModel)]="user.Email" type="email" placeholder="Email" name="Email" disabled>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field class="form__field" floatLabel="always">
-          <input matInput [(ngModel)]="user.Birthday" type="date | date:'yyyy-mm-DD' " placeholder="Birthday"
-            name="Birthday" disabled>
-        </mat-form-field>
-      </p>
-      <button mat-raised-button (click)="toggleEditUserMode()" color="primary">
-        Edit profile details
-      </button>
-    </form>
-    <form *ngIf="editMode">
-      <p>
-        <mat-form-field class="form__field" floatLabel="always">
+        <mat-form-field floatLabel="always">
           <mat-label>Username</mat-label>
           <input matInput [(ngModel)]="userData.Username" placeholder="{{user.Username}}" type="text" name="Username"
             required>
         </mat-form-field>
       </p>
       <p>
-        <mat-form-field class="form__field" floatLabel="always">
+        <mat-form-field floatLabel="always">
           <mat-label>Password</mat-label>
           <input matInput [(ngModel)]="userData.Password" type="password" placeholder="" name="Password" required>
         </mat-form-field>
       </p>
       <p>
-        <mat-form-field class="form__field" floatLabel="always">
+        <mat-form-field floatLabel="always">
           <mat-label>Email</mat-label>
           <input matInput [(ngModel)]="userData.Email" type="email" placeholder="{{user.Email}}" name="Email" required>
         </mat-form-field>
       </p>
       <p>
-        <mat-form-field class="form__field" floatLabel="always">
+        <mat-form-field floatLabel="always">
           <mat-label>Birthday</mat-label>
           <input matInput [(ngModel)]="userData.Birthday" type="date" placeholder="Birthday" name="Birthday">
         </mat-form-field>
@@ -72,13 +60,19 @@
         Save changes
       </button>
     </form>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-stroked-button (click)="deleteUser()" color="warn">
-      Delete account
-    </button>
-    <mat-card-content>
-      Important: Once you click 'delete user profile' your profile will be deleted permanently.
-    </mat-card-content>
-  </mat-card-actions>
-</mat-card>
+  </div>
+  <h2 style="margin-top: 40px">Your Favourite Movies</h2>
+  <div>
+    <div *ngFor="let movie of movies;">
+      <div class="fav-movies-movie" *ngIf="favouriteMovies.includes(movie._id)">
+        <button mat-button (click)="removeFromFavourites(movie._id)"
+          aria-label="Click to remove the movie from your favourite movies list" title="Remove from favourite movies"
+          alt-tag="Remove from favourite movies">
+          <mat-icon>clear</mat-icon>
+        </button>
+        <h4 class="fav-movies-movie-title">{{movie.Title}}</h4>
+      </div>
+    </div>
+  </div>
+
+</div>
