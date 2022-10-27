@@ -18,11 +18,13 @@ import { SynopsisViewComponent } from '../synopsis-view/synopsis-view.component'
 
 export class MovieCardComponent implements OnInit {
   movies: any[] = [];
+  favouriteMovies: any[] = [];
   username: any = localStorage.getItem('username');
   constructor(public fetchApiData: FetchApiDataService, public dialog: MatDialog, public router: Router) { }
 
   ngOnInit(): void {
     this.getMovies();
+    this.getFavMovies();
   };
 
   getMovies(): void {
@@ -32,6 +34,18 @@ export class MovieCardComponent implements OnInit {
       return this.movies;
     });
   };
+
+  getFavMovies(): void {
+    this.fetchApiData.getUser().subscribe((resp: any) => {
+      this.favouriteMovies = resp.FavouriteMovies;
+      console.log(this.favouriteMovies);
+      return this.favouriteMovies;
+    });
+  };
+
+  isFavouriteMovie(id: String): Boolean {
+    return this.favouriteMovies.includes(id);
+  }
 
   addToFavourites(movieId: String): void {
     console.log(`added to profile: ${movieId}`); // for testing
