@@ -12,6 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProfileViewComponent implements OnInit {
   user: any = {};
+  movies: any[] = [];
+  favouriteMovies: any[] = [];
   editMode: Boolean = false;
 
   @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' };
@@ -24,7 +26,8 @@ export class ProfileViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
-    // console.log(this.user); // for testing
+    this.getMovies();
+    this.getFavMovies();
   }
 
   getUser(): void {
@@ -34,6 +37,31 @@ export class ProfileViewComponent implements OnInit {
       return this.user;
     });
   }
+
+  getMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+      this.movies = resp;
+      console.log('in profile view');
+      console.log(this.movies);
+      return this.movies;
+    });
+  };
+
+  getFavMovies(): void {
+    this.fetchApiData.getUser().subscribe((resp: any) => {
+      this.favouriteMovies = resp.FavouriteMovies;
+      console.log('in profile view');
+      console.log(this.favouriteMovies);
+      return this.favouriteMovies;
+    });
+  };
+
+  removeFromFavourites(movieId: String): void {
+    console.log(`removed from profile: ${movieId}`); // for testing
+    this.fetchApiData.removeFavouriteMovie(movieId).subscribe((resp: any) => {
+      this.ngOnInit();
+    });
+  };
 
   deleteUser(): void {
     this.fetchApiData.deleteUser().subscribe((resp: any) => {
@@ -56,6 +84,9 @@ export class ProfileViewComponent implements OnInit {
       this.snackBar.open('Successfully updated profile!', 'OK', {
         duration: 2000,
       });
+      if (this.userData.Username !== this.user.Username) {
+        localStorage.setItem('username', this.userData.Username);
+      };
       this.ngOnInit();
       this.toggleEditUserMode();
     });
@@ -63,7 +94,6 @@ export class ProfileViewComponent implements OnInit {
 
   toggleEditUserMode(): void {
     this.editMode = !this.editMode;
-    // this.userData = { Username: '', Password: '', Email: '', Birthday: '' }; // clear any inputted data when user cancels
   }
 
   openMovieView(): void {
