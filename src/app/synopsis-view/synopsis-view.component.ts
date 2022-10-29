@@ -7,10 +7,14 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./synopsis-view.component.css']
 })
 export class SynopsisViewComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA)
-  public data: {
-    Movie: { Title: String, Description: String }
-  }
+  constructor(
+    /**
+     * Injecting data when opening a dialog
+     */
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      Movie: { Title: String, Description: String }
+    }
   ) { }
 
   ngOnInit(): void {
